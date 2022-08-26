@@ -39,7 +39,7 @@ const Post = (props) => {
       {/*  Old price & new price */}
       <Text style={styles.prices}>
         <Text style={styles.price}>  KES{post.newPrice} </Text>
-        / night
+        / day
       </Text>
 
       {/*  Total price */}
