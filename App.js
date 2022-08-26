@@ -20,7 +20,11 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import HomeScreen from './src/screens/Home';
-import Entypo from "react-native-vector-icons/Entypo"
+import Post from './src/components/Post';
+
+import feed from "./assets/data/feed"
+
+const post1 = feed[9];
 
 const Section = ({children, title}): Node => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -57,7 +61,8 @@ const App: () => Node = () => {
 
   return (
     <SafeAreaView style={backgroundStyle}>
-      <HomeScreen />
+      {/* <HomeScreen /> */}
+      <Post post={post1} />
     </SafeAreaView>
   );
 };
