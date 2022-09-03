@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
 import type {Node} from 'react';
 import {
@@ -19,15 +11,10 @@ import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
 
-import HomeScreen from './src/screens/Home';
-import SearchResultsScreen from './src/screens/SearchResults';
-import Post from './src/components/Post';
-import DestinationSearchScreen from './src/screens/DestinationSearch';
+import 'react-native-gesture-handler';
+import Router from './src/navigation/Router';
+import { StatusBar, } from 'react-native';
 
-
-import feed from "./assets/data/feed"
-
-const post1 = feed[9];
 
 const Section = ({children, title}): Node => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -63,12 +50,10 @@ const App: () => Node = () => {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      {/* <HomeScreen /> */}
-      {/* <Post post={post1} /> */}
-      {/* <SearchResultsScreen /> */}
-      <DestinationSearchScreen />
-    </SafeAreaView>
+    <>
+      <StatusBar barStyle="dark-content" />
+      <Router />
+    </>
   );
 };
 
