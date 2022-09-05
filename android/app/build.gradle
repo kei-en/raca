@@ -1,7 +1,7 @@
 apply plugin: "com.android.application"
+apply from: 'secrets.gradle'
 
 import com.android.build.OutputFile
-
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
  * and bundleReleaseJsAndAssets).
@@ -166,6 +166,10 @@ android {
                 }
             }
         }
+    }
+    
+    buildTypes.each {
+     it.buildConfigField "String", "CREDENTIALS_KEY", "\"$credentialsKey\""
     }
 
     if (isNewArchitectureEnabled()) {
