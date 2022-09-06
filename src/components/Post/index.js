@@ -26,7 +26,7 @@ const Post = (props) => {
         source={{uri: post.image}}
       />
 
-      {/* Bed & Bedroom  */}
+      {/* Car Details  */}
       <Text style={styles.title}>
         {post.make} {post.model} {post.year}
       </Text>
