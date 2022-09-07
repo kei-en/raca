@@ -3,7 +3,7 @@ import {NavigationContainer} from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import DestinationSearchScreen from "../screens/DestinationSearch";
 import CalenderScreen from "../screens/Calender";
-
+import PostScreen from "../screens/PostScreen";
 import HomeTabNavigator from "./HomeTabNavigator";
 
 const Stack = createStackNavigator();
@@ -33,6 +33,14 @@ const Router = (props) => {
           component={CalenderScreen}
           options={{
             title: "Trip Dates?"
+          }}
+        />
+
+        <Stack.Screen
+          name={"Post"}
+          component={PostScreen}
+          options={{
+            title: "Vehicle Details"
           }}
         />
       </Stack.Navigator>

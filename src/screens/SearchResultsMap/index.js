@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FlatList, StyleSheet, useWindowDimensions, View } from 'react-native';
 import MapboxGL from '@rnmapbox/maps';
 import places from "../../../assets/data/feed";
@@ -7,7 +7,7 @@ import PostCarouselItem from "../../components/PostCarouselItem";
 
 MapboxGL.setWellKnownTileServer('Mapbox');
 MapboxGL.setConnected(true);
-MapboxGL.setAccessToken('pk.eyJ1Ijoia2VpLWVuIiwiYSI6ImNsN290MWFlNDEwcHkzb25ia2xiaW9memkifQ.8GIPwLXVq7XnvMjojh8s5w');
+MapboxGL.setAccessToken(`${process.env.MAPBOX_API}`);
 
 
 const SearchResultsMapScreen = (props) => {
@@ -18,13 +18,36 @@ const SearchResultsMapScreen = (props) => {
     
     const [selectedPlaceId, setSelectedPlaceId] = useState(null);
 
+    const flatlist = useRef();
+    const map = useRef();
+  
+    const viewConfig = useRef({itemVisiblePercentThreshold: 70})
+    const onViewChanged = useRef(({viewableItems}) => {
+      if (viewableItems.length > 0) {
+        const selectedPlace = viewableItems[0].item;
+        setSelectedPlaceId(selectedPlace.id)
+      }
+    })
+
     const width = useWindowDimensions().width;
+
+    useEffect(() => {
+      if (!selectedPlaceId || !flatlist) {
+        return;
+      }
+      const index = places.findIndex(place => place.id === selectedPlaceId)
+      flatlist.current.scrollToIndex({index})
+  
+      // const selectedPlace = places[index];
+      // const region = [selectedPlace.coordinate.latitude, selectedPlace.coordinate.longitude];
+      // map.flyTo(region);
+    }, [selectedPlaceId])
     
     return (
       <View style={styles.page}>
         <View style={styles.container}>
           <MapboxGL.MapView style={styles.map}>
-            <MapboxGL.Camera zoomLevel={9}
+            <MapboxGL.Camera ref={map} zoomLevel={9}
                 centerCoordinate={[36.81667, -1.28333]}
             />
             {places.map(place => (
@@ -33,12 +56,13 @@ const SearchResultsMapScreen = (props) => {
                 price={place.newPrice}
                 id={place.id}
                 isSelected={place.id === selectedPlaceId}
-                onSelected={() => setSelectedPlaceId(place.id)} 
+                onPress={() => setSelectedPlaceId(place.id)} 
               />
             ))}
           </MapboxGL.MapView>
           <View style={{position: 'absolute', bottom: 20}}>
             <FlatList
+              ref={flatlist}
               data={places}
               renderItem={({item}) => <PostCarouselItem post={item} />}
               horizontal
@@ -46,6 +70,8 @@ const SearchResultsMapScreen = (props) => {
               snapToInterval={width - 60}
               snapToAlignment={"center"}
               decelerationRate={"fast"}
+              viewabilityConfig={viewConfig.current}
+              onViewableItemsChanged={onViewChanged.current}
             />
           </View>
         </View>
