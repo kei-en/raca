@@ -10,22 +10,30 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: 'white',
     borderRadius: 10,
-    overflow: 'hidden'
+    overflow: 'hidden',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+    elevation: 10,
   },
 
   image: {
     height: '100%',
     aspectRatio: 1,
-    resizeMode: 'cover',
+    resizeMode: 'contain',
   },
 
   title: {
     marginVertical: 10,
-    color: '#5b5b5b',
-  },
-  description: {
     fontSize: 18,
     lineHeight: 26,
+  },
+  description: {
+    color: '#5b5b5b',
   },
   prices: {
     fontSize: 18,

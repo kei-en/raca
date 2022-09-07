@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, useWindowDimensions, View } from 'react-native';
 import MapboxGL from '@rnmapbox/maps';
 import places from "../../../assets/data/feed";
 import CustomMarker from '../../components/CustomMarker';
@@ -17,6 +17,8 @@ const SearchResultsMapScreen = (props) => {
     componentDidMount();
     
     const [selectedPlaceId, setSelectedPlaceId] = useState(null);
+
+    const width = useWindowDimensions().width;
     
     return (
       <View style={styles.page}>
@@ -35,8 +37,16 @@ const SearchResultsMapScreen = (props) => {
               />
             ))}
           </MapboxGL.MapView>
-          <View style={{position: 'absolute', bottom: 40}}>
-            <PostCarouselItem post={places[0]} />
+          <View style={{position: 'absolute', bottom: 20}}>
+            <FlatList
+              data={places}
+              renderItem={({item}) => <PostCarouselItem post={item} />}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              snapToInterval={width - 60}
+              snapToAlignment={"center"}
+              decelerationRate={"fast"}
+            />
           </View>
         </View>
       </View>
