@@ -23,6 +23,11 @@
       "StackName": "amplify-racar-racar-01157",
       "StackId": "arn:aws:cloudformation:eu-central-1:855553125619:stack/amplify-racar-racar-01157/b70cd160-2ef1-11ed-9e9e-0a4f83280dda",
       "AmplifyAppId": "d3k7nkuw4ii3rf"
+    },
+    "categories": {
+      "auth": {
+        "racar9f1491ba": {}
+      }
     }
   }
 }

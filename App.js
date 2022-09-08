@@ -15,6 +15,8 @@ import 'react-native-gesture-handler';
 import Router from './src/navigation/Router';
 import { StatusBar, } from 'react-native';
 
+import { withAuthenticator } from "aws-amplify-react-native";
+
 
 const Section = ({children, title}): Node => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -58,4 +60,4 @@ const App: () => Node = () => {
 };
 
 
-export default App;
+export default withAuthenticator(App);
